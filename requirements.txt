@@ -1,1 +1,1 @@
-frappe
+# frappe is installed and managed by bench — do not list as a pip dependency.
