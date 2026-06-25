@@ -1,0 +1,84 @@
+{
+ "app": "expense_request",
+ "charts": [],
+ "content": "[{\"id\":\"bills_expenses_header\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Your Shortcuts</b></span>\",\"col\":12}},{\"id\":\"bills_expenses_spacer\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"bills_expenses_shortcut\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Bills & Expenses\",\"col\":4}},{\"id\":\"expenses_register_shortcut\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Expenses Register\",\"col\":4}},{\"id\":\"bills_expenses_reports_header\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Reports &amp; Transactions</b></span>\",\"col\":12}},{\"id\":\"bills_expenses_transactions_card\",\"type\":\"card\",\"data\":{\"card_name\":\"Transactions\",\"col\":4}},{\"id\":\"bills_expenses_reports_card\",\"type\":\"card\",\"data\":{\"card_name\":\"Reports\",\"col\":4}}]",
+ "creation": "2026-06-24 13:30:00.000000",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 1,
+ "icon": "expenses",
+ "idx": 0,
+ "indicator_color": "",
+ "is_hidden": 0,
+ "label": "Bills & Expenses",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Transactions",
+   "link_count": 1,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Bills & Expenses",
+   "link_count": 0,
+   "link_to": "Expense Entry",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Reports",
+   "link_count": 1,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Expenses Register",
+   "link_count": 0,
+   "link_to": "Expenses Register",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-06-24 13:30:00.000000",
+ "modified_by": "Administrator",
+ "module": "Accounts",
+ "name": "Bills and Expenses",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 6.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Bills & Expenses",
+   "link_to": "Expense Entry",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "label": "Expenses Register",
+   "link_to": "Expenses Register",
+   "type": "Report"
+  }
+ ],
+ "title": "Bills & Expenses",
+ "type": "Workspace"
+}

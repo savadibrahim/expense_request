@@ -12,6 +12,7 @@ def get_data():
 				{
 					"type": "doctype",
 					"name": "Expense Entry",
+					"label": _("Bills & Expenses"),
 					"description": _("Capture Expenses"),
             		"link": "List/Expense Entry/Link"
 				}

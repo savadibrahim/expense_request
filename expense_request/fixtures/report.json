@@ -12,7 +12,7 @@
   "json": "{\"filters\":[],\"fields\":[[\"payment_to\",\"Expense Entry\"],[\"posting_date\",\"Expense Entry\"],[\"name\",\"Expense Entry\"],[\"description\",\"Expense Entry Item\"],[\"company\",\"Expense Entry\"],[\"amount\",\"Expense Entry Item\"],[\"status\",\"Expense Entry\"],[\"approved_by\",\"Expense Entry\"],[\"expense_account\",\"Expense Entry Item\"],[\"mode_of_payment\",\"Expense Entry\"],[\"cost_center\",\"Expense Entry Item\"],[\"project\",\"Expense Entry Item\"]],\"order_by\":\"`tabExpense Entry`.`modified` desc\",\"add_totals_row\":true,\"page_length\":20,\"column_widths\":{\"payment_to\":120,\"posting_date\":120,\"name\":108,\"Expense Entry Item:description\":120,\"Expense Entry Item:amount\":120,\"status\":120,\"approved_by\":120,\"Expense Entry Item:expense_account\":120,\"mode_of_payment\":97,\"Expense Entry Item:cost_center\":120,\"Expense Entry Item:project\":120},\"group_by\":null}",
   "letter_head": null,
   "modified": "2020-10-25 22:58:17.459778",
-  "module": "Expense Request",
+  "module": "Accounts",
   "name": "Expenses Register",
   "parent": null,
   "parentfield": null,
