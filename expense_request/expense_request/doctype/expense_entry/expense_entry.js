@@ -78,7 +78,7 @@ frappe.ui.form.on('Expense Entry', {
 function set_queries(frm) {
     frm.set_query("expense_account", 'expenses', () => {
         return {
-            query: "expense_request.expense_request.doctype.expense_entry.expense_entry.expense_account_query",
+            query: "expense_request.api.expense_account_query",
             filters: {
                 company: frm.doc.company
             }
