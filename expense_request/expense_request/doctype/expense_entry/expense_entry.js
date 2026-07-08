@@ -78,7 +78,7 @@ frappe.ui.form.on('Expense Entry', {
 function set_queries(frm) {
     frm.set_query("expense_account", 'expenses', () => {
         return {
-            query: "expense_request.api.expense_account_query",
+            query: "erpnext.controllers.queries.get_expense_account",
             filters: {
                 company: frm.doc.company
             }
