@@ -21,7 +21,7 @@
    "fieldname": "expense_account",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Expense Account",
+   "label": "Bill/Expense Account",
    "options": "Account",
    "reqd": 1
   },
