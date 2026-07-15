@@ -111,36 +111,45 @@ function show_accounting_ledger(frm) {
         return;
     }
 
-    frappe.db.get_value("Journal Entry", { bill_no: frm.doc.name }, "name").then((r) => {
-        const journal_entry = r && r.message && r.message.name;
-        if (!journal_entry) {
-            return;
-        }
+    frappe.db
+        .get_value("Journal Entry", { bill_no: frm.doc.name }, ["name", "finance_book", "posting_date"])
+        .then((r) => {
+            const je = r && r.message;
+            if (!je || !je.name) {
+                return;
+            }
 
-        frm.add_custom_button(
-            __("Accounting Ledger"),
-            function () {
-                frappe.route_options = {
-                    voucher_no: journal_entry,
-                    from_date: frm.doc.posting_date,
-                    to_date: moment(frm.doc.modified).format("YYYY-MM-DD"),
-                    company: frm.doc.company,
-                    categorize_by: "Categorize by Voucher (Consolidated)",
-                    show_cancelled_entries: frm.doc.docstatus === 2,
-                    ignore_prepared_report: true,
-                };
-                frappe.set_route("query-report", "General Ledger");
-            },
-            __("View")
-        );
+            frm.add_custom_button(
+                __("Accounting Ledger"),
+                function () {
+                    // Match Journal Entry / Payment Entry View → Ledger options.
+                    // Expense Entry posts via JE, so filter GL by that voucher.
+                    const route_options = {
+                        voucher_no: je.name,
+                        from_date: je.posting_date || frm.doc.posting_date,
+                        to_date: frappe.datetime.get_today(),
+                        company: frm.doc.company,
+                        categorize_by: "",
+                        show_cancelled_entries: frm.doc.docstatus === 2,
+                        include_default_book_entries: 1,
+                        ignore_prepared_report: true,
+                    };
+                    if (je.finance_book) {
+                        route_options.finance_book = je.finance_book;
+                    }
+                    frappe.route_options = route_options;
+                    frappe.set_route("query-report", "General Ledger");
+                },
+                __("View")
+            );
 
-        frm.add_custom_button(
-            __("Journal Entry"),
-            function () {
-                frappe.set_route("Form", "Journal Entry", journal_entry);
-            },
-            __("View")
-        );
-    });
+            frm.add_custom_button(
+                __("Journal Entry"),
+                function () {
+                    frappe.set_route("Form", "Journal Entry", je.name);
+                },
+                __("View")
+            );
+        });
 }
 
