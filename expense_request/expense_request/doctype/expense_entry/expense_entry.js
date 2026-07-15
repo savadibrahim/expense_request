@@ -63,7 +63,7 @@ frappe.ui.form.on('Expense Entry', {
         
     },
     refresh(frm) {
-        //update total and qty when an item is added
+        show_accounting_ledger(frm);
 	},
 	onload(frm) {
         set_queries(frm);
@@ -104,4 +104,43 @@ function set_queries(frm) {
 
 function unset_default_cost_center(frm) {
     frm.set_value("default_cost_center", '');
-}   
+}
+
+function show_accounting_ledger(frm) {
+    if (!(frm.doc.docstatus > 0)) {
+        return;
+    }
+
+    frappe.db.get_value("Journal Entry", { bill_no: frm.doc.name }, "name").then((r) => {
+        const journal_entry = r && r.message && r.message.name;
+        if (!journal_entry) {
+            return;
+        }
+
+        frm.add_custom_button(
+            __("Accounting Ledger"),
+            function () {
+                frappe.route_options = {
+                    voucher_no: journal_entry,
+                    from_date: frm.doc.posting_date,
+                    to_date: moment(frm.doc.modified).format("YYYY-MM-DD"),
+                    company: frm.doc.company,
+                    categorize_by: "Categorize by Voucher (Consolidated)",
+                    show_cancelled_entries: frm.doc.docstatus === 2,
+                    ignore_prepared_report: true,
+                };
+                frappe.set_route("query-report", "General Ledger");
+            },
+            __("View")
+        );
+
+        frm.add_custom_button(
+            __("Journal Entry"),
+            function () {
+                frappe.set_route("Form", "Journal Entry", journal_entry);
+            },
+            __("View")
+        );
+    });
+}
+
