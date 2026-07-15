@@ -202,7 +202,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-10-19 10:41:58.393012",
+ "modified": "2026-07-15 11:32:00.000000",
  "modified_by": "Administrator",
  "module": "Expense Request",
  "name": "Expense Entry",
@@ -210,6 +210,8 @@
  "owner": "Administrator",
  "permissions": [
   {
+   "amend": 1,
+   "cancel": 1,
    "delete": 1,
    "email": 1,
    "export": 1,
@@ -222,6 +224,7 @@
    "write": 1
   },
   {
+   "amend": 1,
    "create": 1,
    "email": 1,
    "export": 1,
@@ -233,6 +236,7 @@
    "write": 1
   },
   {
+   "amend": 1,
    "cancel": 1,
    "delete": 1,
    "email": 1,
