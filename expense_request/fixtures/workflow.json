@@ -50,19 +50,6 @@
     "state": "Approved",
     "update_field": "status",
     "update_value": "Approved"
-   },
-   {
-    "allow_edit": "All",
-    "doc_status": "2",
-    "is_optional_state": 0,
-    "message": "Cancelled",
-    "next_action_email_template": "Expense Entry Approval",
-    "parent": "Expense Approval",
-    "parentfield": "states",
-    "parenttype": "Workflow",
-    "state": "Cancelled",
-    "update_field": "status",
-    "update_value": "Cancelled"
    }
   ],
   "transitions": [
