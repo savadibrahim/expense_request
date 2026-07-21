@@ -16,10 +16,17 @@ def after_install():
 
 def after_migrate():
 	setup_bills_and_expenses_workspace()
+	sync_cancelled_expense_status()
 
 
 def before_uninstall():
 	remove_bills_and_expenses_workspace()
+
+
+def sync_cancelled_expense_status():
+	from expense_request.patches.fix_cancelled_expense_status import execute
+
+	execute()
 
 
 def setup_bills_and_expenses_workspace():

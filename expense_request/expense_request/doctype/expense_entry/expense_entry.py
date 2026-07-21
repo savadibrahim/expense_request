@@ -3,8 +3,11 @@
 # For license information, please see license.txt
 
 from __future__ import unicode_literals
-# import frappe
+
 from frappe.model.document import Document
 
+
 class ExpenseEntry(Document):
-	pass
+	def before_cancel(self):
+		# Workflow cancel does not always persist status; enforce explicitly.
+		self.status = "Cancelled"

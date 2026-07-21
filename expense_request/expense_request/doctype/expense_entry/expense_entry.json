@@ -140,7 +140,7 @@
    "fieldtype": "Select",
    "hidden": 1,
    "label": "Status",
-   "options": "Pending\nApproved\nRejected"
+   "options": "Pending\nApproved\nRejected\nCancelled"
   },
   {
    "allow_on_submit": 1,
