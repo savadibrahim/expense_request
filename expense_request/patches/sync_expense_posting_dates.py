@@ -218,14 +218,9 @@ def ensure_posting_date_and_je(expense_entry_name, target_posting_date):
 
 
 def cancel_linked_journal_entries(expense_entry_name):
-	for je_name in frappe.get_all(
-		"Journal Entry",
-		filters={"bill_no": expense_entry_name, "docstatus": 1},
-		pluck="name",
-	):
-		je = frappe.get_doc("Journal Entry", je_name)
-		je.flags.ignore_permissions = True
-		je.cancel()
+	from expense_request.api import cancel_linked_journal_entries as _cancel
+
+	_cancel(expense_entry_name)
 
 
 def print_summary(summary):

@@ -110,13 +110,27 @@ def initialise_journal_entry(expense_entry_name):
     )
 
 
+def cancel_linked_journal_entries(expense_entry_name):
+	"""Cancel submitted Journal Entries linked to an Expense Entry via bill_no."""
+	for je_name in frappe.get_all(
+		"Journal Entry",
+		filters={"bill_no": expense_entry_name, "docstatus": 1},
+		pluck="name",
+	):
+		je = frappe.get_doc("Journal Entry", je_name)
+		je.flags.ignore_permissions = True
+		je.cancel()
+
+
 def make_journal_entry(expense_entry):
 
     if expense_entry.status == "Approved":         
 
-        # check for duplicates
+        # check for duplicates (submitted only — cancelled JEs must not block recreate)
         
-        if frappe.db.exists({'doctype': 'Journal Entry', 'bill_no': expense_entry.name}):
+        if frappe.db.exists(
+            {"doctype": "Journal Entry", "bill_no": expense_entry.name, "docstatus": 1}
+        ):
             frappe.throw(
                 title="Error",
                 msg="Journal Entry {} already exists.".format(expense_entry.name)
