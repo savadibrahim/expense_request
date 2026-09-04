@@ -63,9 +63,11 @@ frappe.ui.form.on('Expense Entry', {
 
     },
     refresh(frm) {
+        enable_edit_posting_date_on_amend(frm);
         show_accounting_ledger(frm);
     },
     onload(frm) {
+        enable_edit_posting_date_on_amend(frm);
         set_queries(frm);
     },
     company(frm) {
@@ -73,6 +75,16 @@ frappe.ui.form.on('Expense Entry', {
         unset_default_cost_center(frm);
     }
 });
+
+function enable_edit_posting_date_on_amend(frm) {
+    if (!(frm.is_new() && frm.doc.amended_from)) {
+        return;
+    }
+    if (cint(frm.doc.set_posting_time) === 1) {
+        return;
+    }
+    frm.set_value("set_posting_time", 1);
+}
 
 
 function set_queries(frm) {
