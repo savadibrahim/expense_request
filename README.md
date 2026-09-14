@@ -75,3 +75,27 @@ Later
 #### License
 
 MIT
+
+## Package reference (auto)
+
+| | |
+|---|---|
+| **App** | `expense_request` |
+| **Modules** | Expense Request |
+| **Sites** | g2technology, site1.local |
+
+### DocTypes
+
+- **Expense Entry Item** (child table) — module: Expense Request
+- **Expense Entry** (submittable) — module: Expense Request — naming: `Expression (old style)`
+
+### Whitelisted APIs (sample)
+
+- `expense_request.api.initialise_journal_entry`
+
+### Hooks
+
+- `after_install`: `expense_request.install.after_install`
+- `after_migrate`: `expense_request.install.after_migrate`
+- `before_uninstall`: `expense_request.install.before_uninstall`
+

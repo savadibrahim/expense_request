@@ -96,6 +96,10 @@ def setup(expense_entry, method):
     expense_entry.total = total
     expense_entry.quantity = count
 
+    # Recalculate purchase taxes / grand_total before JE (on_update runs after validate).
+    if hasattr(expense_entry, "calculate_totals_and_taxes"):
+        expense_entry.calculate_totals_and_taxes()
+
     make_journal_entry(expense_entry)
 
     
@@ -151,6 +155,30 @@ def make_journal_entry(expense_entry):
                 'cost_center': detail.cost_center
             })
 
+        # Debit tax / charge account heads (skip Valuation-only rows)
+        for tax in expense_entry.get("taxes") or []:
+            if getattr(tax, "category", None) == "Valuation":
+                continue
+            tax_amount = float(tax.tax_amount or 0)
+            if not tax_amount:
+                continue
+            if tax.add_deduct_tax == "Deduct":
+                accounts.append({
+                    'credit_in_account_currency': tax_amount,
+                    'user_remark': str(tax.description or tax.account_head),
+                    'account': tax.account_head,
+                    'cost_center': tax.cost_center or expense_entry.default_cost_center,
+                    'project': tax.project,
+                })
+            else:
+                accounts.append({
+                    'debit_in_account_currency': tax_amount,
+                    'user_remark': str(tax.description or tax.account_head),
+                    'account': tax.account_head,
+                    'cost_center': tax.cost_center or expense_entry.default_cost_center,
+                    'project': tax.project,
+                })
+
         # finally add the payment account detail
 
         pay_account = ""
@@ -173,8 +201,14 @@ def make_journal_entry(expense_entry):
                 msg="The selected Mode of Payment has no linked account."
             )
 
+        payment_amount = float(
+            expense_entry.grand_total
+            if expense_entry.grand_total is not None
+            else expense_entry.total
+        )
+
         accounts.append({  
-            'credit_in_account_currency': float(expense_entry.total),
+            'credit_in_account_currency': payment_amount,
             'user_remark': str(detail.description),
             'account': pay_account,
             'cost_center': expense_entry.default_cost_center
