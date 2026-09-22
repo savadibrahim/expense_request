@@ -34,8 +34,27 @@ def setup_bills_and_expenses_workspace():
 	_import_bills_and_expenses_assets()
 	_remove_legacy_accounting_links()
 	_fix_stale_workspace_links()
+	_ensure_workspace_under_accounting()
 	_ensure_desktop_icon_under_accounting()
 	frappe.clear_cache()
+
+
+def _ensure_workspace_under_accounting():
+	"""Nest under Accounting so it is not a duplicate top-bar workspace."""
+	if not frappe.db.exists("Workspace", BILLS_AND_EXPENSES_WORKSPACE):
+		return
+	if not frappe.db.exists("Workspace", "Accounting"):
+		return
+
+	current = frappe.db.get_value("Workspace", BILLS_AND_EXPENSES_WORKSPACE, "parent_page")
+	if current != "Accounting":
+		frappe.db.set_value(
+			"Workspace",
+			BILLS_AND_EXPENSES_WORKSPACE,
+			"parent_page",
+			"Accounting",
+			update_modified=False,
+		)
 
 
 def _fix_stale_workspace_links():
